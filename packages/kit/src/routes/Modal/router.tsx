@@ -15,6 +15,7 @@ import { CloudBackupPages } from '../../views/CloudBackup/router';
 import { DAppConnectionRouter } from '../../views/DAppConnection/router';
 import { DeviceManagementStacks } from '../../views/DeviceManagement/router';
 import { ModalDiscoveryStack } from '../../views/Discovery/router';
+import { ExportAddressesModalRouter } from '../../views/ExportAddresses/router';
 import { ModalFiatCryptoRouter } from '../../views/FiatCrypto/router';
 import { ModalFirmwareUpdateStack } from '../../views/FirmwareUpdate/router';
 import { KeyTagModalRouter } from '../../views/KeyTag/router';
@@ -184,6 +185,10 @@ const router: IModalRootNavigatorConfig<EModalRoutes>[] = [
   {
     name: EModalRoutes.BulkCopyAddressesModal,
     children: BulkCopyAddressesModalRouter,
+  },
+  {
+    name: EModalRoutes.ExportAddressesModal,
+    children: ExportAddressesModalRouter,
   },
 ];
 

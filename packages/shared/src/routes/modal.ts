@@ -10,6 +10,7 @@ import type { ICloudBackupParamList } from './cloudBackup';
 import type { IDAppConnectionModalParamList } from './dAppConnection';
 import type { IModalDeviceManagementParamList } from './deviceManagement';
 import type { IDiscoveryModalParamList } from './discovery';
+import type { IModalExportAddressesParamList } from './exportAddresses';
 import type { IModalFiatCryptoParamList } from './fiatCrypto';
 import type { IModalFirmwareUpdateParamList } from './firmwareUpdate';
 import type { IModalKeyTagParamList } from './keyTag';
@@ -64,6 +65,7 @@ export enum EModalRoutes {
   DeviceManagementModal = 'DeviceManagementModal',
   ReferFriendsModal = 'ReferFriendsModal',
   BulkCopyAddressesModal = 'BulkCopyAddressesModal',
+  ExportAddressesModal = 'ExportAddressesModal',
 }
 
 export type IModalParamList = {
@@ -100,4 +102,5 @@ export type IModalParamList = {
   [EModalRoutes.WalletAddress]: IModalWalletAddressParamList;
   [EModalRoutes.WebViewModal]: IModalWebViewParamList;
   [EModalRoutes.BulkCopyAddressesModal]: IModalBulkCopyAddressesParamList;
+  [EModalRoutes.ExportAddressesModal]: IModalExportAddressesParamList;
 };
