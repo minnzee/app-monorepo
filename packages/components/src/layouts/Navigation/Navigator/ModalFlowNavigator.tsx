@@ -44,7 +44,10 @@ function ModalFlowNavigator<RouteName extends string, P extends ParamListBase>({
   config,
   onMounted,
   onUnmounted,
-}: IModalFlowNavigatorProps<RouteName, P>) {
+  pageType: pageTypeFromProps,
+}: IModalFlowNavigatorProps<RouteName, P> & {
+  pageType?: EPageType;
+}) {
   const [bgColor, titleColor] = useThemeValue(['bgApp', 'text']);
   const intl = useIntl();
 
@@ -68,9 +71,9 @@ function ModalFlowNavigator<RouteName extends string, P extends ParamListBase>({
 
   const contextValue = useMemo(
     () => ({
-      pageType: EPageType.modal,
+      pageType: pageTypeFromProps || EPageType.modal,
     }),
-    [],
+    [pageTypeFromProps],
   );
   return (
     <PageTypeContext.Provider value={contextValue}>

@@ -44,6 +44,7 @@ export const ONEKEY_API_HOST = 'onekeycn.com';
 export const ONEKEY_TEST_API_HOST = 'onekeytest.com';
 
 export const WEB_APP_URL = 'https://app.onekey.so';
+export const WEB_APP_URL_SHORT = 'https://1key.so';
 export const WEB_APP_URL_DEV = 'https://app.onekeytest.com';
 
 export const EXT_RATE_URL = {
@@ -84,3 +85,5 @@ export const TRADING_VIEW_URL =
 
 export const FALCON_DOCS_URL = 'https://docs.falcon.finance/';
 export const ONEKEY_HEALTH_CHECK_URL = '/wallet/v1/health';
+
+export const SUPPORT_URL = 'https://help.onekey.so/hc/requests/new';

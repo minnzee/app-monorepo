@@ -6,7 +6,6 @@ import { isEmpty, isNil, uniqBy } from 'lodash';
 import { useIntl } from 'react-intl';
 import { useThrottledCallback } from 'use-debounce';
 
-import type { ITabPageProps } from '@onekeyhq/components';
 import {
   Stack,
   useMedia,
@@ -73,10 +72,15 @@ import {
 import { useActiveAccount } from '../../../states/jotai/contexts/accountSelector';
 import { useTokenListActions } from '../../../states/jotai/contexts/tokenList';
 import { HomeTokenListProviderMirrorWrapper } from '../components/HomeTokenListProvider';
+import { onHomePageRefresh } from '../components/PullToRefresh';
 
 const networkIdsMap = getNetworkIdsMap();
 
-function TokenListContainer(_props: ITabPageProps) {
+function TokenListContainer({
+  showWalletActions,
+}: {
+  showWalletActions: boolean;
+}) {
   const { isFocused, isHeaderRefreshing, setIsHeaderRefreshing } =
     useTabIsRefreshingFocused();
 
@@ -287,7 +291,6 @@ function TokenListContainer(_props: ITabPageProps) {
               let accountWorthValue = new BigNumber(0);
               accountWorthValue = accountWorthValue
                 .plus(item.tokens.fiatValue ?? '0')
-                .plus(item.riskTokens.fiatValue ?? '0')
                 .plus(item.smallBalanceTokens.fiatValue ?? '0');
 
               accountWorth[
@@ -323,7 +326,6 @@ function TokenListContainer(_props: ITabPageProps) {
           let accountWorth = new BigNumber(0);
           accountWorth = accountWorth
             .plus(r.tokens.fiatValue ?? '0')
-            .plus(r.riskTokens.fiatValue ?? '0')
             .plus(r.smallBalanceTokens.fiatValue ?? '0');
 
           updateAccountOverviewState({
@@ -511,7 +513,6 @@ function TokenListContainer(_props: ITabPageProps) {
         let createAtNetworkWorth = new BigNumber(0);
         accountWorth = accountWorth
           .plus(r.tokens.fiatValue ?? '0')
-          .plus(r.riskTokens.fiatValue ?? '0')
           .plus(r.smallBalanceTokens.fiatValue ?? '0');
 
         perfTokenListView.markEnd('tokenListRefreshing_allNetworkRequests');
@@ -1049,9 +1050,9 @@ function TokenListContainer(_props: ITabPageProps) {
           mergeDeriveAssets: mergeDeriveAssetsEnabled,
         });
 
-        const accountWorth = new BigNumber(r.tokens.fiatValue ?? '0')
-          .plus(r.riskTokens.fiatValue ?? '0')
-          .plus(r.smallBalanceTokens.fiatValue ?? '0');
+        const accountWorth = new BigNumber(r.tokens.fiatValue ?? '0').plus(
+          r.smallBalanceTokens.fiatValue ?? '0',
+        );
 
         accountsWorth = {
           ...accountsWorth,
@@ -1070,7 +1071,6 @@ function TokenListContainer(_props: ITabPageProps) {
         ) {
           createAtNetworkWorth = createAtNetworkWorth
             .plus(r.tokens.fiatValue ?? '0')
-            .plus(r.riskTokens.fiatValue ?? '0')
             .plus(r.smallBalanceTokens.fiatValue ?? '0');
         }
       }
@@ -1609,6 +1609,7 @@ function TokenListContainer(_props: ITabPageProps) {
       inTabList
       hideValue
       withSwapAction
+      onRefresh={onHomePageRefresh}
       withBuyAndReceive={isBuyAndReceiveEnabled}
       isBuyTokenSupported={isSupported}
       onBuyToken={handleFiatCrypto}
@@ -1649,14 +1650,14 @@ function TokenListContainer(_props: ITabPageProps) {
   );
 }
 
-const TokenListContainerWithProvider = memo((props: ITabPageProps) => {
+const TokenListContainerWithProvider = memo(() => {
   const {
     activeAccount: { account },
   } = useActiveAccount({ num: 0 });
 
   return (
     <HomeTokenListProviderMirrorWrapper accountId={account?.id ?? ''}>
-      <TokenListContainer showWalletActions {...props} />
+      <TokenListContainer showWalletActions />
       {/* <TokenListContainerPerfTest showWalletActions {...props} /> */}
     </HomeTokenListProviderMirrorWrapper>
   );

@@ -50,6 +50,7 @@ import { EReasonForNeedPassword } from '@onekeyhq/shared/types/setting';
 
 import { usePrimeAuthV2 } from '../../../Prime/hooks/usePrimeAuthV2';
 import { usePrimeAvailable } from '../../../Prime/hooks/usePrimeAvailable';
+import { showApiEndpointDialog } from '../../components/ApiEndpointDialog';
 
 import {
   AutoLockListItem,
@@ -120,8 +121,8 @@ export const useSettingsConfig: () => ISettingsConfig = () => {
   const [{ isSupport: webAuthIsSupport }] = usePasswordWebAuthInfoAtom();
   const { copyText } = useClipboard();
   const biometricAuthInfo = useBiometricAuthInfo();
-  const userAgreementUrl = useHelpLink({ path: 'articles/360002014776' });
-  const privacyPolicyUrl = useHelpLink({ path: 'articles/360002003315' });
+  const userAgreementUrl = useHelpLink({ path: 'articles/11461297' });
+  const privacyPolicyUrl = useHelpLink({ path: 'articles/11461298' });
   const helpCenterUrl = useHelpLink({ path: '' });
   const [devSettings] = useDevSettingsPersistAtom();
   const { isPrimeAvailable } = usePrimeAvailable();
@@ -677,6 +678,13 @@ export const useSettingsConfig: () => ISettingsConfig = () => {
                     id: ETranslations.global_dev_mode,
                   }),
                   renderElement: <DevSettingsSection />,
+                },
+                {
+                  icon: 'ApiConnectionOutline',
+                  title: 'API Endpoint Management',
+                  onPress: () => {
+                    showApiEndpointDialog();
+                  },
                 },
               ],
             ],

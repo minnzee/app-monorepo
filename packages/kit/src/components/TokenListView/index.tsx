@@ -3,12 +3,10 @@ import { memo, useEffect, useMemo, useState } from 'react';
 
 import {
   ListView,
-  NestedScrollView,
   SizableText,
   Stack,
   Tabs,
   YStack,
-  renderNestedScrollView,
   useStyle,
 } from '@onekeyhq/components';
 import { SEARCH_KEY_MIN_LENGTH } from '@onekeyhq/shared/src/consts/walletConsts';
@@ -41,6 +39,7 @@ import {
   useTokenListStateAtom,
 } from '../../states/jotai/contexts/tokenList';
 import useActiveTabDAppInfo from '../../views/DAppConnection/hooks/useActiveTabDAppInfo';
+import { PullToRefresh } from '../../views/Home/components/PullToRefresh';
 import { EmptySearch } from '../Empty';
 import { EmptyToken } from '../Empty/EmptyToken';
 import { ListLoading } from '../Loading';
@@ -52,7 +51,6 @@ import { TokenListItem } from './TokenListItem';
 
 type IProps = {
   tableLayout?: boolean;
-  onRefresh?: () => void;
   onPressToken?: (token: IAccountToken) => void;
   withHeader?: boolean;
   withFooter?: boolean;
@@ -81,6 +79,7 @@ type IProps = {
   };
   emptyAccountView?: ReactNode;
   showActiveAccountTokenList?: boolean;
+  onRefresh?: () => void;
   listViewStyleProps?: Pick<
     ComponentProps<typeof ListView>,
     | 'ListHeaderComponentStyle'
@@ -116,6 +115,7 @@ function TokenListViewCmp(props: IProps) {
     emptyAccountView,
     showActiveAccountTokenList = false,
     listViewStyleProps,
+    onRefresh,
   } = props;
 
   const [activeAccountTokenList] = useActiveAccountTokenListAtom();
@@ -346,6 +346,9 @@ function TokenListViewCmp(props: IProps) {
     <ListComponent
       // @ts-ignore
       estimatedItemSize={tableLayout ? undefined : 60}
+      refreshControl={
+        onRefresh ? <PullToRefresh onRefresh={onRefresh} /> : undefined
+      }
       extraData={filteredTokens.length}
       data={filteredTokens}
       contentContainerStyle={resolvedContentContainerStyle as any}

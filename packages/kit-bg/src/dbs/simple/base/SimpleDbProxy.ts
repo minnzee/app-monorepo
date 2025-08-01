@@ -37,6 +37,7 @@ import type { SimpleDbEntityMarketWatchListV2 } from '../entity/SimpleDbEntityMa
 import type { SimpleDbEntityNetworkSelector } from '../entity/SimpleDbEntityNetworkSelector';
 import type { SimpleDbEntityNotificationSettings } from '../entity/SimpleDbEntityNotificationSettings';
 import type { SimpleDbEntityPrime } from '../entity/SimpleDbEntityPrime';
+import type { SimpleDbEntityPrimeTransfer } from '../entity/SimpleDbEntityPrimeTransfer';
 import type { SimpleDbEntityRecentNetworks } from '../entity/SimpleDbEntityRecentNetworks';
 import type { SimpleDbEntityRecentRecipients } from '../entity/SimpleDbEntityRecentRecipients';
 import type { SimpleDbEntityReferralCode } from '../entity/SimpleDbEntityReferralCode';
@@ -48,6 +49,7 @@ import type { SimpleDbEntitySwapHistory } from '../entity/SimpleDbEntitySwapHist
 import type { SimpleDbEntitySwapNetworksSort } from '../entity/SimpleDbEntitySwapNetworksSort';
 import type { SimpleDbEntityUniversalSearch } from '../entity/SimpleDbEntityUniversalSearch';
 import type { SimpleDbEntityV4MigrationResult } from '../entity/SimpleDbEntityV4MigrationResult';
+import type { SimpleDbEntityWalletBanner } from '../entity/SimpleDbEntityWalletBanner';
 
 export class SimpleDbProxy
   extends BackgroundServiceProxyBase
@@ -234,4 +236,12 @@ export class SimpleDbProxy
   riskTokenManagement = this._createProxyService(
     'riskTokenManagement',
   ) as SimpleDbEntityRiskTokenManagement;
+
+  walletBanner = this._createProxyService(
+    'walletBanner',
+  ) as SimpleDbEntityWalletBanner;
+
+  primeTransfer = this._createProxyService(
+    'primeTransfer',
+  ) as SimpleDbEntityPrimeTransfer;
 }
